@@ -10,7 +10,8 @@ var oldIcon = null;
 
 function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true
     });
 
     var defaultBounds = new google.maps.LatLngBounds(
@@ -62,9 +63,10 @@ function initialize() {
     var input = (document.getElementById('input0'));
     searchBox = new google.maps.places.SearchBox((input));
     
-    var inputBox = (document.getElementById('inputWrap'));
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputBox);
     
+    var search = document.getElementById('searchPanel');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(search);
+
     google.maps.event.addListener(searchBox, 'places_changed', function() {
         searchBox.setBounds(map.getBounds());
         var places = removeRepeats(searchBox.getPlaces());
