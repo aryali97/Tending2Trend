@@ -1,4 +1,5 @@
 <?php
+echo "penis";
 require_once('TwitterAPIExchange.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
