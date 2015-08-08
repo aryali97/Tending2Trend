@@ -186,18 +186,8 @@ function addLocations(places) {
     for (var i = 0, marker; marker = markers[i]; i++) {
         marker.setMap(null);
     }
-
-    // For each place, get the icon, place name, and location.
     markers = [];
     var bounds = new google.maps.LatLngBounds();
-    /*
-    for (var i = 0, marker; marker = addedMarkers[i]; i++) {
-        marker.setMap(map);
-        bounds.extend(marker.getPosition());
-    }
-    /*if(places.length > 1) {
-    image.url='http://maps.google.com/mapfiles/marker_orange.png';
-    }*/
     var image = {
         //url: place.icon,
         url: 'images/marker_turqoise.png',
