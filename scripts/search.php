@@ -8,9 +8,8 @@ $settings = array(
     'consumer_secret' => "wRWOKG7ofG4604cgg0uTVOSdmWuVu4lL8AMCEdq3XNI1TuUn3U"
 );
 
-echo json_encode("STUPID");
 require_once('TwitterAPIExchange.php');
-echo json_encode("IDIOT");
+
 $url = "https://api.twitter.com/1.1/search/tweets.json";
  
 $requestMethod = "GET";
@@ -21,6 +20,7 @@ $radius = ',1000mi';
 $geocode = 'geocode=' . $langlong . $radius;
 $count = 'count=1';
 $getfield .= '&' . $geocode . '&' . $count;
+echo json_encode("Hello pls");
 echo $settings[0];
 $twitter = new TwitterAPIExchange($settings);
 echo $twitter->setGetfield($getfield)
