@@ -10,10 +10,17 @@ var oldIcon = null;
 var json_global = "unchanged";
 function setGlobal(newstring)
 {
-    console.log("function fired");
-    console.log("function variable is "+newstring);
-    console.log("test2");
     json_global = newstring;
+}
+function parseData(json_data)
+{
+    var json = JSON.parse(json_data);
+    var cords = [];
+    for( obj in json.statuses)
+    {
+        cords.push(obj.geo.coordinates);
+    }
+    return cords;
 }
 function inputSearch() 
 {
@@ -25,7 +32,6 @@ function inputSearch()
     xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
     console.log(json_global);
-    return; 
 
     var image = {
         //url: place.icon,
@@ -37,6 +43,11 @@ function inputSearch()
     };
 
     var geo_list = parseData(jsondata_result); 
+    for (obj in geo_list)
+    {
+        console.log("Long: "+obj[0]+", Lat: " + obj[1])''
+    }
+    return;
     var newBounds = new google.maps.LatLngBounds();
     for(loc of geo_list)
     {
