@@ -15,6 +15,13 @@ function setGlobal(newstring)
 {
     json_global = newstring;
 }
+function sendMessage(message)
+{
+    document.getElementById("message").innerHTML = message;
+    document.getElementById("search").value = "";
+    document.getElementById("search").focus();
+}
+
 function orderByDate(stats)
 {
     stats.sort(function(x,y){
@@ -78,6 +85,11 @@ function parseData(json_data)
 function inputSearch() 
 {
     var hashtag = document.getElementById("search").value;
+    if(hashtag == "")
+    {
+        sendMessage("Please Enter A Search");
+        return;
+    }
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/search.php?search="+hashtag, false);
     var json_result = "hello";
@@ -95,6 +107,7 @@ function inputSearch()
     var geo_list = parseData(json_global); 
     console.log(json_global);
     if(geo_list.length == 0) {
+        sendMessage("No results found");
         return;
     }
     for(var i = 0, mark; mark = markers[i]; i++) {
@@ -140,7 +153,7 @@ function inputSearch()
         map:map
     }); */
     map.fitBounds(newBounds);
-
+    sendMessage("Found Results!")
     console.log("Done adding marker"); 
 }
 
@@ -306,3 +319,4 @@ function changeColors() {
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
+document.getElementById("search").focus();
