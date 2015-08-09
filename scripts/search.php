@@ -22,7 +22,10 @@ $count = 'count=1';
 $getfield .= '&' . $geocode . '&' . $count;
 
 $twitter = new TwitterAPIExchange($settings);
-echo json_encode($twitter->setGetfield($getfield)
+echo json_encode("TEST1");
+$result = $twitter->setGetfield($getfield)
              ->buildOauth($url, $requestMethod)
-             ->performRequest());
+             ->performRequest();
+
+echo json_encode("FINAL");
 ?>
