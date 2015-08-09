@@ -7,7 +7,7 @@ var map = null;
 var searchBox = null; 
 var selectedMarker = null;
 var oldIcon = null;
-
+var json_global = "unchanged";
 function inputSearch() 
 {
     
@@ -15,12 +15,12 @@ function inputSearch()
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/searchTest.php", true);
     var json_result = "hello";
-    xmlhttp.onload = function (){json_result = this.responseText;};
+    xmlhttp.onload = function (){json_global = this.responseText;};
 
     console.log(hashtag);
     console.log("DSD");
     xmlhttp.send();
-    console.log(json_result);
+    console.log(json_global);
     return; 
 
     var image = {
