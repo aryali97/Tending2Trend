@@ -18,7 +18,7 @@ $getfield = '?q=#' . $search;
 $langlong = '38.825,-77.611';
 $radius = ',1000mi';
 $geocode = 'geocode=' . $langlong . $radius;
-$count = 'count=1';
+$count = 'count=10';
 $getfield .= '&' . $geocode . '&' . $count;
 
 $twitter = new TwitterAPIExchange($settings);
@@ -26,5 +26,5 @@ $twitter = new TwitterAPIExchange($settings);
 $result = $twitter->setGetfield($getfield)
              ->buildOauth($url, $requestMethod)
              ->performRequest();
-
+echo $result;
 ?>
