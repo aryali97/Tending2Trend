@@ -123,6 +123,7 @@ function inputSearch()
         mark.setMap(null);
     }
     markers = [];
+    latlngs = [];
     for (obj of geo_list)
     {
         //console.log(obj);
