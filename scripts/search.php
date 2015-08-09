@@ -1,8 +1,6 @@
 <?php
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
-echo "Found Something";
 $search = $_REQUEST["search"];
-echo $search;
 $settings = array(
     'oauth_access_token' => "895890626-EBKN7DgWCMNoWQCUDwUPTL4ZIQDtztcs4P7S95ff",
     'oauth_access_token_secret' => "DhCpuL5e6eAADunFshqMs45hSe3icxFLSoRYqqMi8BFGg",
