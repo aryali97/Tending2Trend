@@ -15,6 +15,7 @@ function inputSearch()
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/search.php?search="+hashtag, true);
     console.log(hashtag);
+    console.log("DSD");
     xmlhttp.send();
     var jsondata_result = xmlhttp.responseText;
     console.log(jsondata_result[0]);
