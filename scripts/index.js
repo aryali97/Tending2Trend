@@ -34,7 +34,7 @@ function changeHeatMap()
 {
     if(heatmap == null)
     {
-        heatmap = new google.maps.visualization.HeatmapLayer({
+        heatmap = new google.maps.visualization.HeatMapLayer({
           data: latlngs
         });
         heatmap.setMap(map);
@@ -59,10 +59,15 @@ function parseData(json_data)
         //json_obj = JSON.parse(obj);
         try {
             cords.push(obj['geo']['coordinates']);
+            console.log(obj['geo']['coordinates']);
         } catch(Err) {
-            continue;
+            try {
+                console.log(obj['place']['full_name']);
+            } catch(Err) {  
+                console.log('adags wet');
+                continue;
+            }
         }
-        console.log(obj.created_at);
         //geo = JSON.parse(json_obj);
         //console.log(geo);
         //coords_list = JSON.parse(geo.coordinates);
@@ -88,6 +93,7 @@ function inputSearch()
     };
     var newBounds = new google.maps.LatLngBounds();
     var geo_list = parseData(json_global); 
+    console.log(json_global);
     if(geo_list.length == 0) {
         return;
     }
@@ -103,7 +109,8 @@ function inputSearch()
         var temp_marker = new google.maps.Marker({
             icon: image,
             position: temp_latlng,
-            draggable: false
+            draggable: false,
+            animation: google.maps.Animation.DROP
         });
         newBounds.extend(temp_latlng);
         markers.push(temp_marker);
@@ -120,7 +127,7 @@ function inputSearch()
         //newBounds.extend(markers[markerIndex].position);
         //map.panToBounds(newBounds);
         markerIndex++;
-    }, 1000);
+    }, 100);
     /*
     var lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW};

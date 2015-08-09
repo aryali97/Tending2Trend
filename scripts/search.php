@@ -18,7 +18,7 @@ $getfield = '?q=#' . $search;
 $langlong = '38.825,-77.611';
 $radius = ',10000mi';
 $geocode = 'geocode=' . $langlong . $radius;
-$count = 'count=10';
+$count = 'count=100';
 $getfield .= '&' . $geocode . '&' . $count;
 
 $twitter = new TwitterAPIExchange($settings);
