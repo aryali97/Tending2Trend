@@ -12,6 +12,7 @@ function setGlobal(newstring)
 {
     console.log("function fired");
     console.log("function variable is "+newstring);
+    console.log("test2");
     json_global = newstring;
 }
 function inputSearch() 
@@ -19,7 +20,7 @@ function inputSearch()
     
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.open("GET","scripts/searchTest.php", true);
+    xmlhttp.open("GET","scripts/searchTest.php", false);
     var json_result = "hello";
     xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
