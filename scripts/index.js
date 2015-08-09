@@ -13,12 +13,12 @@ function inputSearch()
     
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.open("GET","scripts/search.php?search="+hashtag, true);
+    xmlhttp.open("GET","scripts/searchTest.php", true);
     console.log(hashtag);
     console.log("DSD");
     xmlhttp.send();
     var jsondata_result = xmlhttp.responseText;
-    console.log(jsondata_result[0]);
+    console.log(jsondata_result);
     return; 
 
     var image = {
