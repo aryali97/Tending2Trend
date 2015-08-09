@@ -26,7 +26,7 @@ function toggleMarkers() {
     for(marker of markers) {
         if(marker.map == null) {
             marker.setMap(map);
-        } else 
+        } else {
             marker.setMap(null);
         }
     }
@@ -116,12 +116,11 @@ function inputSearch()
         for(obj of tmp_list) {
             geo_list.push(obj);
         }
-        console.log(geo_list.length); 
-        //console.log(json_global);
-        /*if(geo_list.length == 0) {
-            sendMessage("No results found");
-            return;
-        }*/
+        console.log(geo_list.length);
+    }
+    if(geo_list.length == 0) {
+        sendMessage("No results found");
+        return;
     }
     orderByDate(geo_list);
     var newBounds = new google.maps.LatLngBounds();
@@ -159,19 +158,8 @@ function inputSearch()
         markers[markerIndex].setMap(map);
         markerIndex++;
     }, 100);
-    /*
-    var lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW};
-    //var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-    var line = new google.maps.Polyline({
-        path: latlngs,
-        icons:[{
-            icon: lineSymbol,
-            offset: '50%'}],
-        map:map
-    }); */
     map.fitBounds(newBounds);
-    sendMessage("Found Results!")
+    sendMessage("Found Results!\n(Loading chronologically)")
     console.log("Done adding marker"); 
 }
 
