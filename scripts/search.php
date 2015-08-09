@@ -16,9 +16,9 @@ $requestMethod = "GET";
  
 $getfield = '?q=#' . $search;
 $langlong = '38.825,-77.611';
-$radius = ',1000mi';
+$radius = ',10000mi';
 $geocode = 'geocode=' . $langlong . $radius;
-$count = 'count=1';
+$count = 'count=10';
 $getfield .= '&' . $geocode . '&' . $count;
 
 $twitter = new TwitterAPIExchange($settings);

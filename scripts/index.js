@@ -3,6 +3,7 @@
 // pick list containing a mix of places and predicted search terms.
 
 var markers = []
+var latlngs = []
 var map = null;
 var searchBox = null; 
 var selectedMarker = null;
@@ -12,10 +13,31 @@ function setGlobal(newstring)
 {
     json_global = newstring;
 }
+function orderByDate(stats)
+{
+    stats.sort(function(x,y){
+        datea = dateparse(x.created_at);
+        dateb = dateparse(y.created_at);
+        if(datea < dateb){
+            return -1;
+        }
+        if(dateb < datea){
+            return 1;
+        }
+        return 0;
+        
+    });
+}
+function dateparse(datestr)
+{
+    return Date.parse(datestr);
+}
 function parseData(json_data)
 {
     var json = JSON.parse(json_data);
     var cords = [];
+    console.log(typeof json.statuses);
+    orderByDate(json.statuses);
     for( obj of json.statuses)
     {
         //json_obj = JSON.parse(obj);
@@ -24,6 +46,7 @@ function parseData(json_data)
         } catch(Err) {
             continue;
         }
+        console.log(obj.created_at);
         //geo = JSON.parse(json_obj);
         //console.log(geo);
         //coords_list = JSON.parse(geo.coordinates);
@@ -66,15 +89,22 @@ function inputSearch()
             position: temp_latlng,
             draggable: false
         });
-        console.log('penis1');
         temp_marker.setMap(map);
-        console.log('penis2');
         newBounds.extend(temp_latlng);
-        console.log('penis3');
         markers.push(temp_marker);
+        latlngs.push(temp_latlng);
     }
+    /*
+    var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW};
     //var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-    
+    var line = new google.maps.Polyline({
+        path: latlngs,
+        icons:[{
+            icon: lineSymbol,
+            offset: '50%'}],
+        map:map
+    }); */
     map.fitBounds(newBounds);
 
     console.log("Done adding marker"); 
