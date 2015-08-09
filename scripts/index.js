@@ -319,4 +319,3 @@ function changeColors() {
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
-document.getElementById("search").focus();
