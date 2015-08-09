@@ -86,22 +86,26 @@ function inputSearch()
         console.log("Long: "+obj[0]+", Lat: " + obj[1]);
         var temp_latlng = new google.maps.LatLng(parseFloat(obj[0]),parseFloat(obj[1]));
         var temp_marker = new google.maps.Marker({
-            map: map,
             icon: image,
             position: temp_latlng,
             draggable: false
         });
-        temp_marker.setMap(map);
-        newBounds.extend(temp_latlng);
+        //newBounds.extend(temp_latlng);
         markers.push(temp_marker);
         latlngs.push(temp_latlng);
     }
-    for(mark of markers)
-    {
-        currentmark = mark;
-        console.log("Wat");
-        window.setTimeout(function(){currentmark.setMap(map)}, 500);
-    }
+    markerIndex = 0;
+    var timer = window.setInterval(function(){
+        if(markerIndex > markers.length) {
+            window.clearTimeout(timer);
+            return;
+        }
+        console.log('GetWet');
+        markers[markerIndex].setMap(map);
+        newBounds.extend(markers[markerIndex].position);
+        map.panToBounds(newBounds);
+        markerIndex++;
+    }, 1000);
     /*
     var lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW};
@@ -113,7 +117,7 @@ function inputSearch()
             offset: '50%'}],
         map:map
     }); */
-    map.fitBounds(newBounds);
+    //map.fitBounds(newBounds);
 
     console.log("Done adding marker"); 
 }
@@ -122,7 +126,7 @@ function inputSearch()
 function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true
+        disableDefaultUI: true, zoomControl: true
     });
 
     var defaultBounds = new google.maps.LatLngBounds(
