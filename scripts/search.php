@@ -20,7 +20,7 @@ $radius = ',1000mi';
 $geocode = 'geocode=' . $langlong . $radius;
 $count = 'count=1';
 $getfield .= '&' . $geocode . '&' . $count;
-
+echo json_encode($getfield);
 $twitter = new TwitterAPIExchange($settings);
 echo json_encode("TEST1");
 $result = $twitter->setGetfield($getfield)
