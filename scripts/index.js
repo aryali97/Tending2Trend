@@ -75,12 +75,7 @@ function parseData(json_data)
             tmpArray.push(obj['created_at']);
             cords.push(obj['geo']['coordinates']);
         } catch(Err) {
-            try {
-                //console.log(obj['place']['full_name']);
-            } catch(Err) {  
-                //console.log('adags wet');
-                continue;
-            }
+            continue;
         }
     }
     return cords;
@@ -116,7 +111,7 @@ function inputSearch()
         for(obj of tmp_list) {
             geo_list.push(obj);
         }
-        console.log(geo_list.length);
+        //console.log(geo_list.length);
     }
     if(geo_list.length == 0) {
         sendMessage("No results found");
@@ -130,8 +125,8 @@ function inputSearch()
     markers = [];
     for (obj of geo_list)
     {
-        console.log(obj);
-        console.log("Long: "+obj[0]+", Lat: " + obj[1]);
+        //console.log(obj);
+        //console.log("Long: "+obj[0]+", Lat: " + obj[1]);
         var temp_latlng = new google.maps.LatLng(parseFloat(obj[0]),parseFloat(obj[1]));
         var temp_marker = new google.maps.Marker({
             icon: image,
@@ -151,15 +146,15 @@ function inputSearch()
     markerIndex = 0;
     var timer = window.setInterval(function(){
         if(markerIndex >= markers.length) {
+            sendMessage("Loaded all " + geo_list.length + " results!");
             window.clearTimeout(timer);
             return;
         }
-        console.log('GetWet');
+        sendMessage("Found " + markerIndex + " results! (Loading chronologically)");
         markers[markerIndex].setMap(map);
         markerIndex++;
     }, 100);
     map.fitBounds(newBounds);
-    sendMessage("Found Results!\n(Loading chronologically)")
     console.log("Done adding marker"); 
 }
 
@@ -246,91 +241,5 @@ function initialize() {
 
 
 }
-    
-function addLocations(places) {
-    console.log(places);
-    if(places.length == 0) {
-        return;
-    }
-    for (var i = 0, marker; marker = markers[i]; i++) {
-        marker.setMap(null);
-    }
-    markers = [];
-    var bounds = new google.maps.LatLngBounds();
-    var image = {
-        //url: place.icon,
-        url: 'images/marker_turqoise.png',
-        size: new google.maps.Size(75, 100),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 38)
-    };
-    for (var i = 0, place; place = places[i]; i++) {
-        image.url = 'images/marker_turqoise.png';
-        // Create a marker for each place.
-        var marker = new google.maps.Marker({
-            map: map,
-            icon: image,
-            title: place.name,
-            position: place.geometry.location,
-            draggable: true
-        });
-        marker.selected=false;
-        markers.push(marker);
-        bounds.extend(place.geometry.location);
-    }
-    console.log(bounds.getNorthEast().lat());
-    map.fitBounds(bounds);
-    if(map.getZoom() > 19) {
-        map.setZoom(17);
-    }
-    searchBox.setBounds(bounds);
-    var total = markers.length
-}
-    
-function removeRepeats(places) {
-    var i = 0;
-    while(i < places.length) {
-        var j = 0;
-        var boo = 1;
-        while(j < i) {
-            console.log(i, j);
-            console.log(places);
-            var latDif = places[j].geometry.location.lat()-places[i].geometry.location.lat();
-            var lngDif = places[j].geometry.location.lng()-places[i].geometry.location.lng();
-            var mag = latDif*latDif+lngDif*lngDif;
-            if(i == 8 && j == 7) {
-                console.log(mag);
-            }
-            if(mag < 0.000005) {
-                boo = 0;
-            }
-            j++;
-        }
-        if(boo == 0) {
-            places.splice(i,1);
-        } else {
-            i++;
-        }
-    }
-    console.log(places);
-    return places;
-}
-    
-function changeColors() {
-    for(var i = 0; i < markers.length; i++) {
-        var url = 'images/marker_turqoise.png';
-        var col = '#ffffff';
-        if(i == selectedInput) {
-            col = '#4d90fe';
-            url = 'images/marker_turqoise.png';
-        }
-        for(var j = 0, marker; marker = markers[i][j]; j++) {
-            marker.icon.url = url;
-            marker.setMap(map);
-        }
-    }
-}
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
