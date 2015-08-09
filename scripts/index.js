@@ -22,6 +22,16 @@ function sendMessage(message)
     document.getElementById("search").focus();
 }
 
+function toggleMarkers() {
+    for(marker of markers) {
+        if(marker.map == null) {
+            marker.setMap(map);
+        } else 
+            marker.setMap(null);
+        }
+    }
+}
+
 function orderByDate(geo_list)
 {
     geo_list.sort(function(x, y) {
