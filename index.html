@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/index.css" type="text/css" />
 
 <title>Something</title>
+<script src="scripts/jquery-1.11.3.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script type="text/javascript" src="scripts/index.js"></script>
 <style>
@@ -24,24 +25,29 @@
 
 
     <div class = "searchPanel" id = "searchPanel" style="background:#55acee;color:white;width: 300px;height: 100%;">
+        <form> 
         <table align="center">
-            <tr><td colspan="2" align="center"><p>Welcome to Tending to Trend! <br> Enter search paramaters to find trends!</p> </td></tr>
+            <tr><td colspan="2" align="center"><p style="font-family:Georgia Narrow;font-size:15px;">Welcome to Tending to Trend! <br> Enter search paramaters to find trends!</p> </td></tr>
             <tr><td colspan="2" align="center"><img src="images/twitter-512.png"></td></tr>
             <tr align="center">
                 <td>
-                    <p>Find Trend:</p>
+                    <p style="font-family:Georgia Narrow; font-size:15px;">Find Trend:</p>
                 </td>
                 <td>
-                    <input style="border:None;" type="text" placeholder = "Ex. #CloseFCPS"> </input>
+                    <input id = "search" style="border:None;" type="text" placeholder = "Ex. #CloseFCPS"> </input>
                 </td>
             </tr>
 
             <tr align="center">
-                <td><p>Pick a date</p></td>
-                <td><input style="border:None;" type="date"></input></td>
+                <td><p style="font-family:Georgia Narrow; font-size:15px;">Pick a date:</p></td>
+                <td><input id="date" style="border:None;" type="date"></input></td>
             </tr>
 
+            <tr> 
+                <td colspan="2" align="center"><button onClick="inputSearch()" style="background:#55acee;color:white;border:None;" type="button">Submit</button></td>
+            </tr>
         </table>
+        </form>
     </div>
 
     

@@ -8,6 +8,48 @@ var searchBox = null;
 var selectedMarker = null;
 var oldIcon = null;
 
+function inputSearch() 
+{
+    
+    var hashtag = document.getElementById("search").value;
+    var xmlhttp = new XMLHttpRequest(); 
+    xmlhttp.open("GET","scripts/search.php?search="+hashtag, true);
+    xmlhttp.send();
+    var jsondata_result = xmlhttp.responseText;
+    console.log(jsondata_result[0]);
+    return; 
+
+    var image = {
+        //url: place.icon,
+        url: 'images/marker_turqoise.png',
+        size: new google.maps.Size(75, 100),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 38)
+    };
+
+    var geo_list = parseData(jsondata_result); 
+    var newBounds = new google.maps.LatLngBounds();
+    for(loc of geo_list)
+    {
+        var temp_latlng = new google.maps.LatLng(loc[0],loc[1]);
+        var temp_marker = new google.maps.Marker({
+        map: map,
+        icon: image,
+        position: myLatlng,
+        draggable: true
+        });
+        temp_marker.setMap(map);
+        newBounds.extend(temp_marker);
+    }
+    //var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    
+    map.fitBounds(newBounds);
+
+    console.log("Done adding marker"); 
+}
+
+
 function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -78,6 +120,8 @@ function initialize() {
         searchBox.setBounds(bounds);
     });
     //THE ABOVE IS VERY VERY UNNECESSARY 
+
+
 }
     
 function addLocations(places) {
@@ -164,6 +208,5 @@ function changeColors() {
         }
     }
 }
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
