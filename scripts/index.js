@@ -32,7 +32,7 @@ function orderByDate(stats)
 }
 function changeHeatMap()
 {
-    if(heatmap.map == null)
+    if(heatmap == null)
     {
         heatmap = new google.maps.visualization.HeatmapLayer({
           data: latlngs
@@ -105,20 +105,20 @@ function inputSearch()
             position: temp_latlng,
             draggable: false
         });
-        //newBounds.extend(temp_latlng);
+        newBounds.extend(temp_latlng);
         markers.push(temp_marker);
         latlngs.push(temp_latlng);
     }
     markerIndex = 0;
     var timer = window.setInterval(function(){
-        if(markerIndex > markers.length) {
+        if(markerIndex >= markers.length) {
             window.clearTimeout(timer);
             return;
         }
         console.log('GetWet');
         markers[markerIndex].setMap(map);
-        newBounds.extend(markers[markerIndex].position);
-        map.panToBounds(newBounds);
+        //newBounds.extend(markers[markerIndex].position);
+        //map.panToBounds(newBounds);
         markerIndex++;
     }, 1000);
     /*
@@ -132,7 +132,7 @@ function inputSearch()
             offset: '50%'}],
         map:map
     }); */
-    //map.fitBounds(newBounds);
+    map.fitBounds(newBounds);
 
     console.log("Done adding marker"); 
 }
