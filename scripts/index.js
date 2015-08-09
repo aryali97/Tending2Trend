@@ -176,45 +176,54 @@ function initialize() {
     map.fitBounds(defaultBounds); 
 
     //THE BELOW IS VERY VERY UNNECESSARY
-    var styles = [
+    var style = [
         {
-            featureType: "road.local",
-            elementType: "all",
-            stylers: [
-                { hue: "#336E7B" },
-                //{ saturation: 100 },
-                //{ lightness: -10},
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "saturation": "-20"
+                },
+                {
+                    "lightness": "5"
+                },
+                {
+                    "color": "#61a8bf"
+                }
             ]
         },
         {
-            featureType: "road.arterial",
-            elementType: "geometry",
-            stylers: [
-                { hue: "#336E7B" }, //"#F22613" },
-                { saturation:  0 },
-                { lightness: -15 },
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "lightness": "100"
+                },
+                {
+                    "color": "#b1bbcc"
+                },
+                {
+                    "saturation": "0"
+                }
             ]
         },
         {
-            featureType: "road.highway",
-            elementType: "geometry",
-            stylers: [
-                { hue:  "#663399" }, //"#446CB3" },
-                { saturation: -50 },
-                { lightness:    5 },
-            ]
-        },
-        {  
-            featureType: "water",
-            elementType: "all",
-            stylers: [
-                { hue:  "#1E8BC3" },
-                { lightness:  -30 },
-                { saturation: -50 }
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "saturation": "-30"
+                },
+                {
+                    "lightness": "-50"
+                },
+                {
+                    "color": "#305e80"
+                }
             ]
         }
-    ];
-    map.setOptions({styles: styles});
+    ]
+    map.setOptions({styles: style});
     
     var input = (document.getElementById('input0'));
     searchBox = new google.maps.places.SearchBox((input));
