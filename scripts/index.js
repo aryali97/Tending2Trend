@@ -39,11 +39,8 @@ function orderByDate(stats)
 }
 function changeHeatMap()
 {
-    if(heatmap == null)
+    if(heatmap.map == null)
     {
-        heatmap = new google.maps.visualization.HeatMapLayer({
-          data: latlngs
-        });
         heatmap.setMap(map);
     }
     else
@@ -129,6 +126,11 @@ function inputSearch()
         markers.push(temp_marker);
         latlngs.push(temp_latlng);
     }
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: latlngs,
+        radius: 35,
+        opacity: .5,
+    });
     markerIndex = 0;
     var timer = window.setInterval(function(){
         if(markerIndex >= markers.length) {
