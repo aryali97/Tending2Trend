@@ -1,1 +1,1 @@
-<?php echo "STUPID" ?>
+<?php print_r("STUPID"); ?>
