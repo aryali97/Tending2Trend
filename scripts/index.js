@@ -11,6 +11,7 @@ var json_global = "unchanged";
 function setGlobal(newstring)
 {
     console.log("function fired");
+    console.log("function variable is "+newstring);
     json_global = newstring;
 }
 function inputSearch() 
