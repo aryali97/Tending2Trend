@@ -1,1 +1,1 @@
-<?php print_r("STUPID"); ?>
+<?php echo json_encode("STUPID"); ?>
