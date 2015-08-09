@@ -5,6 +5,7 @@
 var markers = []
 var latlngs = []
 var map = null;
+var heatmap = null;
 var searchBox = null; 
 var selectedMarker = null;
 var oldIcon = null;
@@ -28,6 +29,20 @@ function orderByDate(stats)
         return 0;
         
     });
+}
+function changeHeatMap()
+{
+    if(heatmap.map == null)
+    {
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: latlngs
+        });
+        heatmap.setMap(map);
+    }
+    else
+    {
+        heatmap.setMap(null);
+    }
 }
 function dateparse(datestr)
 {
