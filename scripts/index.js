@@ -32,7 +32,7 @@ function orderByDate(stats)
 }
 function changeHeatMap()
 {
-    if(heatmap.map == null)
+    if(heatmap == null)
     {
         heatmap = new google.maps.visualization.HeatmapLayer({
           data: latlngs
@@ -297,4 +297,10 @@ function changeColors() {
     }
 }
 
+document.onkeypress(function(e){
+    if(e.which == 13)
+    {
+        inputSearch();
+    }
+});
 google.maps.event.addDomListener(window, 'load', initialize);
