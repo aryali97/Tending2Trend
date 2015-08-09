@@ -14,7 +14,8 @@ function inputSearch()
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/searchTest.php", true);
-    xmlhttp.onload = function (){var json_result = this.responseText;};
+    var json_result = "hello";
+    xmlhttp.onload = function (){json_result = this.responseText;};
 
     console.log(hashtag);
     console.log("DSD");
