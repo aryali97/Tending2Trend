@@ -20,7 +20,7 @@ function inputSearch()
     
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.open("GET","scripts/searchTest.php", false);
+    xmlhttp.open("GET","scripts/search.php?"+hashtag, false);
     var json_result = "hello";
     xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
