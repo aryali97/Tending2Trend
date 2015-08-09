@@ -45,7 +45,7 @@ function inputSearch()
     var geo_list = parseData(jsondata_result); 
     for (obj in geo_list)
     {
-        console.log("Long: "+obj[0]+", Lat: " + obj[1])''
+        console.log("Long: "+obj[0]+", Lat: " + obj[1])
     }
     return;
     var newBounds = new google.maps.LatLngBounds();
