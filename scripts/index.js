@@ -22,11 +22,11 @@ function sendMessage(message)
     document.getElementById("search").focus();
 }
 
-function orderByDate(stats)
+function orderByDate(geo_list)
 {
-    stats.sort(function(x,y){
-        datea = dateparse(x.created_at);
-        dateb = dateparse(y.created_at);
+    geo_list.sort(function(x, y) {
+        datea = dateparse(x[2]);
+        dateb = dateparse(y[2]);
         if(datea < dateb){
             return -1;
         }
@@ -34,7 +34,6 @@ function orderByDate(stats)
             return 1;
         }
         return 0;
-        
     });
 }
 function changeHeatMap()
@@ -62,20 +61,17 @@ function parseData(json_data)
     {
         //json_obj = JSON.parse(obj);
         try {
+            var tmpArray = obj['geo']['coordinates'];
+            tmpArray.push(obj['created_at']);
             cords.push(obj['geo']['coordinates']);
-            console.log(obj['geo']['coordinates']);
         } catch(Err) {
             try {
-                console.log(obj['place']['full_name']);
+                //console.log(obj['place']['full_name']);
             } catch(Err) {  
-                console.log('adags wet');
+                //console.log('adags wet');
                 continue;
             }
         }
-        //geo = JSON.parse(json_obj);
-        //console.log(geo);
-        //coords_list = JSON.parse(geo.coordinates);
-        //cords.push(coords_list);
     }
     return cords;
 }
@@ -87,11 +83,6 @@ function inputSearch()
         sendMessage("Please Enter A Search");
         return;
     }
-    var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.open("GET","scripts/search.php?search="+hashtag, false);
-    var json_result = "hello";
-    xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
-    xmlhttp.send();
     var image = {
         //url: place.icon,
         url: 'images/marker_turqoise.png',
@@ -99,14 +90,31 @@ function inputSearch()
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 38)
-    };
-    var newBounds = new google.maps.LatLngBounds();
-    var geo_list = parseData(json_global); 
-    console.log(json_global);
-    if(geo_list.length == 0) {
-        sendMessage("No results found");
-        return;
+    }; 
+    var coords = [[38.825, -77.611], [39.8282, -98.5795], [41.3483, -113.9050]];
+    var geo_list = [];
+    for(coord of coords) {
+        var lat = coord[0];
+        var lon = coord[1];
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","scripts/search.php?search="+hashtag+"&"+"lat="+lat+"&"+"lon="+lon, false);
+        var json_result = "hello";
+        xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
+        xmlhttp.send();
+        var newBounds = new google.maps.LatLngBounds();
+        var tmp_list = parseData(json_global); 
+        for(obj of tmp_list) {
+            geo_list.push(obj);
+        }
+        console.log(geo_list.length); 
+        //console.log(json_global);
+        /*if(geo_list.length == 0) {
+            sendMessage("No results found");
+            return;
+        }*/
     }
+    orderByDate(geo_list);
+    var newBounds = new google.maps.LatLngBounds();
     for(var i = 0, mark; mark = markers[i]; i++) {
         mark.setMap(null);
     }
@@ -139,8 +147,6 @@ function inputSearch()
         }
         console.log('GetWet');
         markers[markerIndex].setMap(map);
-        //newBounds.extend(markers[markerIndex].position);
-        //map.panToBounds(newBounds);
         markerIndex++;
     }, 100);
     /*
