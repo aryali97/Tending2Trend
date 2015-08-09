@@ -16,23 +16,29 @@ function parseData(json_data)
 {
     var json = JSON.parse(json_data);
     var cords = [];
-    for( obj in json.statuses)
+    for( obj of json.statuses)
     {
-        cords.push(obj.geo.coordinates);
+        //json_obj = JSON.parse(obj);
+        try {
+            cords.push(obj['geo']['coordinates']);
+        } catch(Err) {
+            continue;
+        }
+        //geo = JSON.parse(json_obj);
+        //console.log(geo);
+        //coords_list = JSON.parse(geo.coordinates);
+        //cords.push(coords_list);
     }
     return cords;
 }
 function inputSearch() 
 {
-    
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/search.php?"+hashtag, false);
     var json_result = "hello";
     xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
-    console.log(json_global);
-
     var image = {
         //url: place.icon,
         url: 'images/marker_turqoise.png',
@@ -41,25 +47,31 @@ function inputSearch()
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 38)
     };
-
-    var geo_list = parseData(jsondata_result); 
-    for (obj in geo_list)
-    {
-        console.log("Long: "+obj[0]+", Lat: " + obj[1])
-    }
-    return;
     var newBounds = new google.maps.LatLngBounds();
-    for(loc of geo_list)
+    var geo_list = parseData(json_global); 
+    if(geo_list.length == 0) {
+        return;
+    }
+    for(var i = 0, mark; mark = markers[i]; i++) {
+        mark.setMap(null);
+    }
+    for (obj of geo_list)
     {
-        var temp_latlng = new google.maps.LatLng(loc[0],loc[1]);
+        console.log(obj);
+        console.log("Long: "+obj[0]+", Lat: " + obj[1]);
+        var temp_latlng = new google.maps.LatLng(parseFloat(obj[0]),parseFloat(obj[1]));
         var temp_marker = new google.maps.Marker({
-        map: map,
-        icon: image,
-        position: myLatlng,
-        draggable: true
+            map: map,
+            icon: image,
+            position: temp_latlng,
+            draggable: false
         });
+        console.log('penis1');
         temp_marker.setMap(map);
-        newBounds.extend(temp_marker);
+        console.log('penis2');
+        newBounds.extend(temp_latlng);
+        console.log('penis3');
+        markers.push(temp_marker);
     }
     //var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
     
