@@ -8,6 +8,11 @@ var searchBox = null;
 var selectedMarker = null;
 var oldIcon = null;
 var json_global = "unchanged";
+function setGlobal(newstring)
+{
+    console.log("function fired");
+    json_global = newstring;
+}
 function inputSearch() 
 {
     
@@ -15,10 +20,7 @@ function inputSearch()
     var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.open("GET","scripts/searchTest.php", true);
     var json_result = "hello";
-    xmlhttp.onload = function (){json_global = this.responseText;};
-
-    console.log(hashtag);
-    console.log("DSD");
+    xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
     console.log(json_global);
     return; 
