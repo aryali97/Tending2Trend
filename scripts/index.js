@@ -238,7 +238,7 @@ function addLocations(places) {
         scaledSize: new google.maps.Size(25, 38)
     };
     for (var i = 0, place; place = places[i]; i++) {
-        image.url = 'images/marker_purple.png';
+        image.url = 'images/marker_turqoise.png';
         // Create a marker for each place.
         var marker = new google.maps.Marker({
             map: map,
@@ -295,7 +295,7 @@ function changeColors() {
         var col = '#ffffff';
         if(i == selectedInput) {
             col = '#4d90fe';
-            url = 'images/marker_purple.png';
+            url = 'images/marker_turqoise.png';
         }
         for(var j = 0, marker; marker = markers[i][j]; j++) {
             marker.icon.url = url;
