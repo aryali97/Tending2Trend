@@ -9,6 +9,7 @@ var searchBox = null;
 var selectedMarker = null;
 var oldIcon = null;
 var json_global = "unchanged";
+currentmark = null;
 function setGlobal(newstring)
 {
     json_global = newstring;
@@ -58,7 +59,7 @@ function inputSearch()
 {
     var hashtag = document.getElementById("search").value;
     var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.open("GET","scripts/search.php?"+hashtag, false);
+    xmlhttp.open("GET","scripts/search.php?search="+hashtag, false);
     var json_result = "hello";
     xmlhttp.onload = function (){json_global = this.responseText; setGlobal(this.responseText);};
     xmlhttp.send();
@@ -78,6 +79,7 @@ function inputSearch()
     for(var i = 0, mark; mark = markers[i]; i++) {
         mark.setMap(null);
     }
+    markers = [];
     for (obj of geo_list)
     {
         console.log(obj);
@@ -93,6 +95,12 @@ function inputSearch()
         newBounds.extend(temp_latlng);
         markers.push(temp_marker);
         latlngs.push(temp_latlng);
+    }
+    for(mark of markers)
+    {
+        currentmark = mark;
+        console.log("Wat");
+        window.setTimeout(function(){currentmark.setMap(map)}, 500);
     }
     /*
     var lineSymbol = {
