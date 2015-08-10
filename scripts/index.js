@@ -83,6 +83,9 @@ function parseData(json_data)
 function inputSearch() 
 {
     var hashtag = document.getElementById("search").value;
+    if(hashtag.indexOf("#") > -1){
+        hashtag = hashtag.substring(1);
+    }
     if(hashtag == "")
     {
         sendMessage("Please Enter A Search");
@@ -138,6 +141,9 @@ function inputSearch()
         newBounds.extend(temp_latlng);
         markers.push(temp_marker);
         latlngs.push(temp_latlng);
+    }
+    if(heatmap != null){
+        heatmap.setMap(null);
     }
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: latlngs,
