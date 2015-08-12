@@ -193,7 +193,6 @@ function initialize() {
         new google.maps.LatLng(39.000, -77.150));
     map.fitBounds(expandBounds(defaultBounds)); 
 
-    //THE BELOW IS VERY VERY UNNECESSARY
     var style = [
         {
             "featureType": "road.highway",
@@ -241,28 +240,20 @@ function initialize() {
             ]
         }
     ]
-    map.setOptions({styles: style});
-    
-    var input = (document.getElementById('input0'));
-    searchBox = new google.maps.places.SearchBox((input));
-    
+    map.setOptions({styles: style});    
     
     var search = document.getElementById('searchPanel');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(search);
 
-    google.maps.event.addListener(searchBox, 'places_changed', function() {
-        searchBox.setBounds(map.getBounds());
-        var places = removeRepeats(searchBox.getPlaces());
-        addLocations(places);
-    });
+    //google.maps.event.addListener(searchBox, 'places_changed', function() {
+    //    searchBox.setBounds(map.getBounds());
+    //    var places = removeRepeats(searchBox.getPlaces());
+    //    addLocations(places);
+    //}); 
     
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
-        searchBox.setBounds(bounds);
-    });
-    //THE ABOVE IS VERY VERY UNNECESSARY 
-
-
+    });  
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
