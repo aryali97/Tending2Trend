@@ -161,10 +161,26 @@ function inputSearch()
         markers[markerIndex].setMap(map);
         markerIndex++;
     }, 100);
-    map.fitBounds(newBounds);
+    map.fitBounds(expandBounds(newBounds));
     console.log("Done adding marker"); 
 }
 
+function expandBounds(bounds) {
+    var lat1 = bounds.getNorthEast().lat();
+    var lon1 = bounds.getNorthEast().lng();
+    var lat0 = bounds.getSouthWest().lat();
+    var lon0 = bounds.getSouthWest().lng();
+    var width = screen.availWidth;
+    var remW = width - 300;
+    var latDifAdj = (lat1-lat0)*width/remW;
+    var lonDifAdj = (lon1-lon0)*width/remW;
+    var nLat = lat1-latDifAdj;
+    var nLon = lon1-lonDifAdj;
+    var adjBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(nLat, nLon),
+        bounds.getNorthEast());
+    return adjBounds;
+}
 
 function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -175,7 +191,7 @@ function initialize() {
     var defaultBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(38.825, -77.611),
         new google.maps.LatLng(39.000, -77.150));
-    map.fitBounds(defaultBounds); 
+    map.fitBounds(expandBounds(defaultBounds)); 
 
     //THE BELOW IS VERY VERY UNNECESSARY
     var style = [

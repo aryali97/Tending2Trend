@@ -15,21 +15,21 @@
 <script type="text/javascript" src="scripts/index.js"></script>
 <script>
     document.onkeypress = function(e){
-    var key = e.keyCode ? e.keyCode : e.which;
-
-    if(key == 13)
-    {
-        console.log("enter pressed");
-        inputSearch();
-        e.preventDefault();
-    }
-};</script>
+        if(e == null) {
+            return;
+        }
+        var key = e.keyCode ? e.keyCode : e.which;
+        if(key == 13)
+        {
+            console.log("enter pressed");
+            inputSearch();
+            e.preventDefault();
+        }
+    };
+</script>
 <link rel="shortcut icon" href="images/t2tRESIZED.png">
 </head>
   <body>            
-
-
-
     <div class = "searchPanel" id = "searchPanel" style="background:#55acee;color:white;width: 300px;height: 100%;">
         <form> 
         <table align="center">
